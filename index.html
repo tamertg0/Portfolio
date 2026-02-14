@@ -21,21 +21,53 @@
       color: #111;
     }
 
-    body.light nav { background: rgba(255,255,255,0.6); }
-    body.light .card { background: #ffffff; }
-    body.light .about { color: #333; }
-    body.light footer { color: #555; }
-
-    nav {
+    body.light nav {
       position: fixed;
       width: 100%;
-      padding: 20px 10%;
+      padding: 18px 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       backdrop-filter: blur(10px);
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.35);
       z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    /* Mobile Navigation */
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 6%;
+        background: rgba(0,0,0,0.9);
+        flex-direction: column;
+        width: 200px;
+        padding: 20px;
+        border-radius: 12px;
+        display: none;
+      }
+
+      .nav-links a {
+        padding: 10px 0;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
     }
 
     nav h1 {
@@ -171,12 +203,13 @@
 
 <nav>
   <h1>PORTFOLIO</h1>
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-links" id="navLinks">
+    <a href="#">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="menu-toggle" id="menuToggle">☰</div>
   <button id="modeToggle" class="btn" style="padding:8px 18px; font-size:14px;">🌙</button>
 </nav>
 
@@ -286,6 +319,14 @@
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('light');
     toggleBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+  });
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
   });
 </script>
 
